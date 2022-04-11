@@ -7,7 +7,7 @@ const socketController = (socket) => {
     // Cuando un cliente se conecta
     socket.emit('last-ticket', ticketControl.last);
     socket.emit('current-status', ticketControl.last4);
-    socket.emit('pending-tickets', ticketControl.pending.length);
+    socket.emit('pending-tickets', ticketControl.pending);
 
     socket.on('next-ticket', (payload, callback) => {
         const next = ticketControl.next();
@@ -27,8 +27,8 @@ const socketController = (socket) => {
         const ticket = ticketControl.attendTicket(payload.desktop);
 
         socket.broadcast.emit('current-status', ticketControl.last4);
-        socket.emit('pending-tickets', ticketControl.pending.length);
-        socket.broadcast.emit('pending-tickets', ticketControl.pending.length);
+        socket.emit('pending-tickets', ticketControl.pending);
+        socket.broadcast.emit('pending-tickets', ticketControl.pending);
 
         if (!ticket) {
             callback({
