@@ -1,9 +1,9 @@
 const path = require('path');
 const fs = require('fs');
 
-const Ticket = require('./ticket');
+const Order = require('./order');
 
-class ticketControl {
+class orderControl {
 
     constructor() {
         this.last = 0;
@@ -41,27 +41,27 @@ class ticketControl {
 
     next() {
         this.last += 1;
-        const ticket = new Ticket(this.last, null);
-        this.pending.push(ticket);
+        const order = new Order(this.last, null);
+        this.pending.push(order);
         this.saveDB();
-        return 'Ticket ' + ticket.number;
+        return order.number;
     }
 
-    attendTicket(desktop) {
+    attendOrder(table) {
         if (this.pending.length === 0) {
             return null;
         } else {
-            const ticket = this.pending.shift(); // Saco el primer ticket de la lista de pendientes
-            ticket.desktop = desktop;
-            this.last4.unshift(ticket);
+            const order = this.pending.shift(); // Saco el primer pedido de la lista de pendientes
+            order.table = table;
+            this.last4.unshift(order);
             if (this.last4.length > 4) {
                 this.last4.splice(-1, 1);
             }
             this.saveDB();
-            return ticket;
+            return order;
         }
     }
 
 }
 
-module.exports = ticketControl;
+module.exports = orderControl;

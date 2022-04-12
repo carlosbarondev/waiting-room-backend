@@ -1,44 +1,44 @@
-const TicketControl = require("../models/ticketControl");
+const OrderControl = require("../models/orderControl");
 
-const ticketControl = new TicketControl();
+const orderControl = new OrderControl();
 
 const socketController = (socket) => {
 
     // Cuando un cliente se conecta
-    socket.emit('last-ticket', ticketControl.last);
-    socket.emit('current-status', ticketControl.last4);
-    socket.emit('pending-tickets', ticketControl.pending);
+    socket.emit('last-order', orderControl.last);
+    socket.emit('current-status', orderControl.last4);
+    socket.emit('pending-orders', orderControl.pending);
 
-    socket.on('next-ticket', (payload, callback) => {
-        const next = ticketControl.next();
+    socket.on('next-order', (payload, callback) => {
+        const next = orderControl.next();
         callback(next);
-        socket.broadcast.emit('pending-tickets', ticketControl.pending);
+        socket.broadcast.emit('pending-orders', orderControl.pending);
     });
 
-    socket.on('attend-ticket', (payload, callback) => {
+    socket.on('attend-order', (payload, callback) => {
 
-        if (!payload.desktop) {
+        if (!payload.table) {
             return callback({
                 ok: false,
                 msg: 'El escritorio es obligatorio'
             })
         }
 
-        const ticket = ticketControl.attendTicket(payload.desktop);
+        const order = orderControl.attendOrder(payload.table);
 
-        socket.broadcast.emit('current-status', ticketControl.last4);
-        socket.emit('pending-tickets', ticketControl.pending);
-        socket.broadcast.emit('pending-tickets', ticketControl.pending);
+        socket.broadcast.emit('current-status', orderControl.last4);
+        socket.emit('pending-orders', orderControl.pending);
+        socket.broadcast.emit('pending-orders', orderControl.pending);
 
-        if (!ticket) {
+        if (!order) {
             callback({
                 ok: false,
-                msg: 'No hay tickets pendientes'
+                msg: 'No hay pedidos pendientes'
             });
         } else {
             callback({
                 ok: true,
-                ticket
+                order
             });
         }
 
