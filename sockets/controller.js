@@ -12,7 +12,7 @@ const socketController = (socket) => {
     socket.on('next-ticket', (payload, callback) => {
         const next = ticketControl.next();
         callback(next);
-        socket.broadcast.emit('pending-tickets', ticketControl.pending.length);
+        socket.broadcast.emit('pending-tickets', ticketControl.pending);
     });
 
     socket.on('attend-ticket', (payload, callback) => {
