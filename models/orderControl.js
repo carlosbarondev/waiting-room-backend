@@ -41,7 +41,7 @@ class orderControl {
 
     next() {
         this.last += 1;
-        const order = new Order(this.last, null);
+        const order = new Order(this.last, null, "Waiting");
         this.pending.push(order);
         this.saveDB();
         return order.number;
@@ -51,8 +51,20 @@ class orderControl {
         if (this.pending.length === 0) {
             return null;
         } else {
-            const order = this.pending.shift(); // Saco el primer pedido de la lista de pendientes
+            const order = this.pending.find(order => order.state === "Waiting");
             order.table = table;
+            order.state = "";
+            this.saveDB();
+            return order;
+        }
+    }
+
+    readyOrder(number) {
+        if (number === "Ninguno") {
+            return null;
+        } else {
+            const order = this.pending.find(order => order.number === number);
+            this.pending = this.pending.filter(order => order.number !== number);
             this.last4.unshift(order);
             if (this.last4.length > 4) {
                 this.last4.splice(-1, 1);

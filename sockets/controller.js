@@ -26,10 +26,9 @@ const socketController = (socket) => {
 
         const order = orderControl.attendOrder(payload.table);
 
-        socket.broadcast.emit('current-status', orderControl.last4);
         socket.emit('pending-orders', orderControl.pending);
         socket.broadcast.emit('pending-orders', orderControl.pending);
-
+        console.log(order)
         if (!order) {
             callback({
                 ok: false,
@@ -41,6 +40,30 @@ const socketController = (socket) => {
                 order
             });
         }
+
+    });
+
+    socket.on('ready-order', (payload, callback) => {
+
+        if (!payload.order) {
+            return callback({
+                ok: false,
+                msg: 'El número es obligatorio'
+            })
+        }
+
+        const order = orderControl.readyOrder(payload.order);
+
+        if (!order) {
+            callback({
+                ok: false,
+                msg: 'Error en la base de datos'
+            });
+        }
+
+        socket.broadcast.emit('current-status', orderControl.last4);
+        socket.emit('pending-orders', orderControl.pending);
+        socket.broadcast.emit('pending-orders', orderControl.pending);
 
     });
 
