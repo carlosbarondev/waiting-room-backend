@@ -28,7 +28,7 @@ const socketController = (socket) => {
 
         socket.emit('pending-orders', orderControl.pending);
         socket.broadcast.emit('pending-orders', orderControl.pending);
-        console.log(order)
+
         if (!order) {
             callback({
                 ok: false,

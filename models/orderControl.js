@@ -52,10 +52,14 @@ class orderControl {
             return null;
         } else {
             const order = this.pending.find(order => order.state === "Waiting");
-            order.table = table;
-            order.state = "";
-            this.saveDB();
-            return order;
+            if (order) {
+                order.table = table;
+                order.state = "";
+                this.saveDB();
+                return order;
+            } else {
+                return null;
+            }
         }
     }
 
