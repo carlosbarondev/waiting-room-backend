@@ -6,7 +6,7 @@ const socketController = (socket) => {
 
     // Cuando un cliente se conecta
     socket.emit('last-order', orderControl.last);
-    socket.emit('current-status', orderControl.last4);
+    socket.emit('current-status', orderControl.last6);
     socket.emit('pending-orders', orderControl.pending);
 
     socket.on('next-order', (payload, callback) => {
@@ -61,7 +61,7 @@ const socketController = (socket) => {
             });
         }
 
-        socket.broadcast.emit('current-status', orderControl.last4);
+        socket.broadcast.emit('current-status', orderControl.last6);
         socket.emit('pending-orders', orderControl.pending);
         socket.broadcast.emit('pending-orders', orderControl.pending);
 

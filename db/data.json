@@ -1,1 +1,6 @@
-{"last":20,"today":15,"pending":[{"number":20,"table":"1","state":""}],"last4":[{"number":17,"table":"2","state":""},{"number":19,"table":"1","state":""},{"number":18,"table":"1","state":""},{"number":11,"table":"1","state":""}]}
+{
+    "last": 0,
+    "today": 16,
+    "pending": [],
+    "last6": []
+}

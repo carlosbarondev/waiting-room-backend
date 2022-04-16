@@ -9,7 +9,7 @@ class orderControl {
         this.last = 0;
         this.today = new Date().getDate();
         this.pending = [];
-        this.last4 = [];
+        this.last6 = [];
 
         this.init();
     }
@@ -19,16 +19,16 @@ class orderControl {
             last: this.last,
             today: this.today,
             pending: this.pending,
-            last4: this.last4
+            last6: this.last6
         }
     }
 
     init() {
-        const { last, today, pending, last4 } = require('../db/data.json');
+        const { last, today, pending, last6 } = require('../db/data.json');
         if (today === this.today) { // El día del archivo data coincide con el día de hoy
             this.pending = pending;
             this.last = last;
-            this.last4 = last4;
+            this.last6 = last6;
         } else { // El día del archivo data NO coincide con el día de hoy (es otro día)
             this.saveDB(); // Resetea el archivo data
         }
@@ -51,14 +51,19 @@ class orderControl {
         if (this.pending.length === 0) {
             return null;
         } else {
-            const order = this.pending.find(order => order.state === "Waiting");
-            if (order) {
-                order.table = table;
-                order.state = "";
-                this.saveDB();
-                return order;
+            const orderByTable = this.pending.find(order => order.table === table);
+            if (orderByTable) {
+                return orderByTable;
             } else {
-                return null;
+                const orderByState = this.pending.find(order => order.state === "Waiting");
+                if (orderByState) {
+                    orderByState.table = table;
+                    orderByState.state = "";
+                    this.saveDB();
+                    return orderByState;
+                } else {
+                    return null;
+                }
             }
         }
     }
@@ -69,9 +74,9 @@ class orderControl {
         } else {
             const order = this.pending.find(order => order.number === number);
             this.pending = this.pending.filter(order => order.number !== number);
-            this.last4.unshift(order);
-            if (this.last4.length > 4) {
-                this.last4.splice(-1, 1);
+            this.last6.unshift(order);
+            if (this.last6.length > 6) {
+                this.last6.splice(-1, 1);
             }
             this.saveDB();
             return order;
