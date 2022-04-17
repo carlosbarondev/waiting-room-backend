@@ -1,6 +1,6 @@
 # Waiting-Room Backend
 
-Servidor de un restaurante de comida rápida, construido con Node, Express y Socket.IO.
+Socket Server de un restaurante de comida rápida, construido con Node, Express y Socket.IO.
 
 [VISTA PREVIA](https://waiting-room-carlosbarondev.herokuapp.com/) *(El servidor arranca en 10 segundos aproximadamente)*
 
@@ -19,7 +19,7 @@ Servidor de un restaurante de comida rápida, construido con Node, Express y Soc
 
 ## Características principales
 
-* Conexión en tiempo real cliente-servidor con WebSockets
+* Conexión en tiempo real cliente-servidor mediante WebSockets
 * Pantalla pública
 * Creación de pedidos
 * Terminales para los trabajadores
