@@ -2,7 +2,7 @@
 
 Socket Server de un restaurante de comida rápida, construido con Node, Express y Socket.IO.
 
-[VISTA PREVIA](https://waiting-room-carlosbarondev.herokuapp.com/) *(El servidor arranca en 10 segundos aproximadamente)*
+[VISTA PREVIA](https://waiting-room-carlosbarondev.up.railway.app/) *(El servidor arranca en 10 segundos aproximadamente)*
 
 [Frontend](https://github.com/carlosbarondev/waiting-room-frontend)
 
@@ -37,5 +37,5 @@ Socket Server de un restaurante de comida rápida, construido con Node, Express 
 
 ## Links
 
-* [Website](https://waiting-room-carlosbarondev.herokuapp.com/) *(El servidor arranca en 10 segundos aproximadamente)*
+* [Website](https://waiting-room-carlosbarondev.up.railway.app/) *(El servidor arranca en 10 segundos aproximadamente)*
 * [Frontend](https://github.com/carlosbarondev/waiting-room-frontend)
